@@ -40,7 +40,7 @@ See [variables](/defaults/main.yml) for more details.
 ## Examples
 
         ---
-        - hosts: apps_ssl_exporter
+        - hosts: all
           become: true
           become_method: sudo
           gather_facts: true
