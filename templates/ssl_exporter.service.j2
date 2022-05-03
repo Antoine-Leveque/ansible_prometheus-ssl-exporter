@@ -1,0 +1,18 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=Prometheus ssl Exporter
+After=network-online.target
+StartLimitInterval=0
+
+[Service]
+Type=simple
+Restart=always
+ExecStart={{ ssl_exporter_install_dir }}/ssl_exporter --web.listen-address=":{{ ssl_exporter_listen_port }}"
+ExecReload=/bin/kill -HUP $MAINPID
+SyslogIdentifier=ssl_exporter
+RestartSec=1
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target

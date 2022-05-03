@@ -1,0 +1,12 @@
+---
+# Binary install
+ssl_exporter_version: "2.4.0"
+ssl_exporter_file: "ssl_exporter_{{ ssl_exporter_version }}_linux_amd64.tar.gz"
+ssl_exporter_url: "https://github.com/ribbybibby/ssl_exporter/releases/download/v{{ ssl_exporter_version }}/{{ ssl_exporter_file }}"
+ssl_exporter_install_dir: "/usr/local/bin"
+ssl_exporter_download_dir: "/tmp"
+ssl_exporter_force_install: false
+
+# Systemd options
+ssl_exporter_logfile: "/var/log/ssl-exporter.log"
+ssl_exporter_listen_port: "9130"

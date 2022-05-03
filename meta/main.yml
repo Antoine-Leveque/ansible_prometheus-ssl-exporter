@@ -1,0 +1,18 @@
+galaxy_info:
+  author: AntoineLEVEQUE
+  description: "Deploy [ssl_exporter](https://github.com/ribbybibby/ssl_exporter) to expose ssl metrics to prometheus "
+  license: license (GPL-2.0-or-later, MIT, etc)
+
+  min_ansible_version: 2.1
+
+  platforms:
+    - name: "Debian"
+      versions:
+        - "bullseye"
+
+  galaxy_tags: 
+    - prometheus
+    - ssl 
+    - exporter
+
+dependencies: []

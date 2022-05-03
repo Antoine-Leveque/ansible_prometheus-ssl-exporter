@@ -1,0 +1,47 @@
+---
+- name: "Check for ssl_exporter binary"
+  stat:
+    path: "{{ ssl_exporter_install_dir }}/ssl_exporter"
+  changed_when: false
+  register: ssl_exporter_install
+
+- when: not ssl_exporter_install.stat.exists or ssl_exporter_force_install|bool
+  block:
+    - name: "Install requierements"
+      package:
+        name: "ca-certificates"
+        state: present
+
+    - name: "Download ssl_exporter..."
+      get_url:
+        url: '{{ ssl_exporter_url }}'
+        dest: '/tmp/'
+        #dest: '{{ ssl_exporter_install_dir }}/ssl_exporter'
+        timeout: 60
+        mode: '0755'
+    - name: "Unarchive ssl_exporter"
+      ansible.builtin.unarchive:
+        src: '{{ ssl_exporter_download_dir }}/{{ ssl_exporter_file }}'
+        dest: '{{ ssl_exporter_download_dir }}'
+        remote_src: yes
+    - name: "Install ssl_exporter"
+      ansible.builtin.copy:
+        src: '{{ ssl_exporter_download_dir }}/ssl_exporter'
+        dest: '{{ ssl_exporter_install_dir }}'
+        mode: '0755'
+        remote_src: yes
+
+
+- name: "Create systemd for ssl_exporter"
+  template:
+    src: 'ssl_exporter.service.j2'
+    dest: '/etc/systemd/system/ssl_exporter.service'
+    mode: '0644'
+  notify: "restart ssl_exporter"
+
+- name: "Enable and Start ssl_exporter.service"
+  service:
+    name: ssl_exporter
+    state: started
+    enabled: true
+    daemon_reload: true

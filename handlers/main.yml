@@ -1,0 +1,5 @@
+---
+- name: "restart ssl_exporter"
+  service:
+    name: "ssl_exporter"
+    state: "restarted"
