@@ -31,7 +31,7 @@ Deploy [ssl_exporter](https://github.com/ribbybibby/ssl_exporter) to expose ssl 
 
 ## Requirements
 
-none
+- jmespath
 
 ## Role variables
 
